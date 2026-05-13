@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "noorgenix-6"
+  },
+  "targets": {
+    "noorgenix-6": {
+      "hosting": {
+        "longevity": ["longevity-noorgenx"]
+      }
+    }
+  }
+}

@@ -37,6 +37,15 @@ const DEMO = {
   oskStatus:      'NOT READY — Clear zombie cells first',
   dengeHits:      133,
   dengePassRate:  '66.5%',
+  // NEW #130-#132
+  tas:            7.1,
+  telomereKb:     4.8,
+  telomerePerc:   'P8',
+  gdi:            5.4,
+  mls:            46,
+  akkermansia:    '0.3%',
+  pci:            5.8,
+  upr:            'PERK-dominant',
 }
 
 /* ─── MODULES ──────────────────────────────────────────────────── */
@@ -130,6 +139,39 @@ const MODULES = [
     detail: 'REINVENT4 RL + BDE-MANGO Gate-1. Top candidate: IC50 24 nM, MW 412 Da, Tanimoto > 0.78.',
     badge: 'LAYER 5',
     patent: true,
+  },
+  {
+    id: 130, num: '#130', key: 'telomere',
+    name: 'Telomere Length Analyzer',
+    subtitle: 'TelSeq · Telomerecat · TERT methylation · Hayflick limit',
+    icon: '⟳',
+    color: C.accent,
+    tier: 'free',
+    metric: { label: 'Telomere Attrition Score', value: DEMO.tas, unit: '/ 10', status: 'high', max: 10 },
+    detail: `4-tool ensemble (TelSeq/Telomerecat/TelomereHunter/QMUL). Consensus TL: ${DEMO.telomereKb} kb (${DEMO.telomerePerc}). TERT promoter methylation + ALT pathway detection. dCas9-TET1 handoff.`,
+    badge: 'LAYER 6',
+  },
+  {
+    id: 131, num: '#131', key: 'microbiome',
+    name: 'Gut Microbiome Longevity',
+    subtitle: 'Dysbiosis index · Akkermansia · butyrate · FMT candidacy',
+    icon: '◎',
+    color: C.green,
+    tier: 'free',
+    metric: { label: 'Gut Dysbiosis Index', value: DEMO.gdi, unit: '/ 10', status: 'elevated', max: 10 },
+    detail: `16S/shotgun metagenomics. MLS: ${DEMO.mls}/100. Akkermansia: ${DEMO.akkermansia} (LOW — target 1–5%). SASP-gut axis. Urolithin A capacity + butyrate production. OSK microbiome gate.`,
+    badge: 'LAYER 7',
+  },
+  {
+    id: 132, num: '#132', key: 'proteostasis',
+    name: 'Proteostasis Engine',
+    subtitle: 'HSP90 · UPS · autophagy flux · UPR · rapamycin · spermidine',
+    icon: '⬟',
+    color: '#a78bfa',
+    tier: 'free',
+    metric: { label: 'Proteostasis Collapse Index', value: DEMO.pci, unit: '/ 10', status: 'elevated', max: 10 },
+    detail: `Chaperone network (HSP90/70/60/GRP78) + UPS efficiency (p62/K48-Ub) + autophagy flux (LC3/Beclin1/PINK1). UPR: ${DEMO.upr}. Spermidine + rapamycin 5mg/week + ISRIB candidate. OSK proteostasis gate.`,
+    badge: 'LAYER 8',
   },
 ]
 
@@ -430,7 +472,7 @@ function Navbar({ activeTab, setTab }) {
         background: `${C.green}20`, border: `1px solid ${C.green}40`,
         borderRadius: 20, padding: '4px 14px',
         fontSize: 11, color: C.green, fontFamily: mono, fontWeight: 600,
-      }}>● LIVE · 129 Agents</div>
+      }}>● LIVE · 132 Agents</div>
     </nav>
   )
 }
@@ -463,8 +505,9 @@ function Hero({ lrs, onDemo }) {
         fontSize: 16, color: C.muted, fontFamily: font,
         maxWidth: 600, margin: '0 auto 36px', lineHeight: 1.7,
       }}>
-        8-layer AI pipeline · DNA methylation · Senescent cells · AlphaGenome variants ·
-        CRISPR repair · TIGR-Tas · OSK rejuvenation · DENGE de novo molecules
+        11-layer AI pipeline · DNA methylation · Senescent cells · AlphaGenome variants ·
+        CRISPR repair · TIGR-Tas · OSK rejuvenation · DENGE de novo molecules ·
+        Telomere attrition · Gut microbiome · Proteostasis — all 12 hallmarks of aging
       </p>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 48, flexWrap: 'wrap' }}>
         <div style={{ textAlign: 'center' }}>
@@ -516,7 +559,7 @@ function About() {
     { label: 'Company', value: 'Horizon Commerce LLC (NoorGenX™)' },
     { label: 'Founder', value: 'Amjad Sohail · ORCID 0009-0003-0243-7177' },
     { label: 'Location', value: 'Lorton, VA, USA' },
-    { label: 'Agent Fleet', value: '129 Claude Code subagents · 258 files · 2 repos' },
+    { label: 'Agent Fleet', value: '132 Claude Code subagents · 264 files · 2 repos' },
     { label: 'Patents', value: 'US Provisional 63/928,895 · 64/016,235 · 64/061,778' },
     { label: 'Funding', value: 'NIH SBIR Phase I pending (NCI) · Sep 5, 2026 deadline' },
     { label: 'DENGE Paper', value: 'bioRxiv preprint pending · JCIM submission target Oct 2026' },
@@ -527,7 +570,7 @@ function About() {
       <h2 style={{ color: C.white, fontFamily: font, marginBottom: 8 }}>About NoorGenX™</h2>
       <p style={{ color: C.muted, fontFamily: font, lineHeight: 1.7, marginBottom: 32 }}>
         NoorGenX is an AI-first precision longevity and oncology intelligence platform built by
-        Horizon Commerce LLC. The longevity.noorgenx.com platform integrates 8 AI layers —
+        Horizon Commerce LLC. The longevity.noorgenx.com platform integrates 11 AI layers —
         from ultra-weak biophoton emission detection to de novo drug molecule generation —
         into a unified Longevity Intelligence Report (LIR).
       </p>
@@ -566,6 +609,9 @@ const PIPELINE_STEPS = [
   { agent: '#129 TIGR-Tas Editor',        task: 'Running Paired Nickase AND-gate analysis…',   result: 'Free tier complete · TIGR-Tas slot reserved 🔒',         color: C.teal,    duration: 1700 },
   { agent: '#126 OSK Reprogramming',      task: 'Evaluating 4 readiness gates…',               result: 'BLOCKED — Clear zombie cells first (Gate 1 fail)',       color: C.primary, duration: 1500 },
   { agent: '#91 DENGE Engine',            task: 'Scoring 200 RL-generated candidates…',        result: '133 passed Gate-1 · Top IC50: 24 nM · MW 412 Da',       color: C.orange,  duration: 2200 },
+  { agent: '#130 Telomere Analyzer',      task: 'Running 4-tool ensemble on WGS reads…',        result: 'TL: 4.8 kb (P8) · TAS 7.1/10 SEVERE · TERT hypermethylated', color: C.accent,  duration: 1800 },
+  { agent: '#131 Gut Microbiome',         task: 'Profiling 16S taxa + butyrate pathways…',      result: 'GDI: 5.4/10 · Akkermansia LOW (0.3%) · MLS 46/100',      color: C.green,   duration: 2100 },
+  { agent: '#132 Proteostasis Engine',    task: 'Assessing HSP90 + UPS + autophagy flux…',      result: 'PCI: 5.8/10 · PERK-UPR active · spermidine priority',    color: '#a78bfa', duration: 1900 },
 ]
 
 /* ─── PDF GENERATOR ─────────────────────────────────────────────── */
@@ -696,10 +742,13 @@ function generateLIR(patientName) {
     { num:'#125', name:'CRISPR Guide Designer',    col:'#22c55e', result:'2 Tier-1 guides designed for FLT3-ITD. 0 off-targets > 3 mismatches.' },
     { num:'#129', name:'TIGR-Tas Editor',          col:'#2dd4bf', result:'Free tier (Paired Cas9 Nickase) complete. TIGR-Tas locked — Broad license required.' },
     { num:'#126', name:'OSK Reprogramming',        col:'#0077b6', result:'BLOCKED -- Gate 1 (zombie clearance) not met. SBI must reach <=5.0 first.' },
-    { num:'#91',  name:'DENGE De Novo Engine',     col:'#f97316', result:'133/200 Gate-1 passes (66.5%). Top candidate: IC50 24 nM, MW 412 Da, Tanimoto 0.78.' },
+    { num:'#91',  name:'DENGE De Novo Engine',      col:'#f97316', result:'133/200 Gate-1 passes (66.5%). Top candidate: IC50 24 nM, MW 412 Da, Tanimoto 0.78.' },
+    { num:'#130', name:'Telomere Length Analyzer',  col:'#4cc9f0', result:'TL: 4.8 kb (P8 — Severe). TAS 7.1/10. TERT promoter hypermethylated. dCas9-TET1 handoff.' },
+    { num:'#131', name:'Gut Microbiome Longevity',  col:'#22c55e', result:'GDI: 5.4/10 Moderate. MLS 46/100. Akkermansia LOW (0.3%). Probiotic + prebiotic protocol.' },
+    { num:'#132', name:'Proteostasis Engine',       col:'#a78bfa', result:'PCI: 5.8/10 Moderate. PERK-UPR active. Spermidine + rapamycin 5mg/week recommended.' },
   ]
 
-  let ay = 132
+  let ay = 112
   agentRows.forEach((ag, i) => {
     fill('#0b1220'); stroke('#0d2240'); doc.setLineWidth(0.5)
     doc.roundedRect(36, ay, W-72, 62, 8, 8, 'FD')
@@ -715,7 +764,7 @@ function generateLIR(patientName) {
     color('#94a3b8'); doc.setFont('helvetica','normal'); doc.setFontSize(8.5)
     const lines = doc.splitTextToSize(ag.result, W-140)
     doc.text(lines, 84, ay+32)
-    ay += 70
+    ay += 62
   })
 
   // footer
@@ -1140,12 +1189,12 @@ function AnalyzeTab() {
           border: `1px solid ${C.green}40`, borderRadius: 20,
           padding: '4px 16px', fontSize: 11, color: C.green,
           fontFamily: mono, letterSpacing: 1, marginBottom: 16,
-        }}>✓ ANALYSIS COMPLETE — ALL 8 AGENTS FINISHED</div>
+        }}>✓ ANALYSIS COMPLETE — ALL 11 AGENTS FINISHED</div>
         <h2 style={{ color: C.white, fontFamily: font, fontSize: 26, marginBottom: 8 }}>
           {name ? `${name}'s` : 'Your'} Longevity Intelligence Report™
         </h2>
         <p style={{ color: C.muted, fontFamily: font, fontSize: 13 }}>
-          Generated {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · NoorGenX™ Platform · 129 Agents
+          Generated {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} · NoorGenX™ Platform · 132 Agents
         </p>
       </div>
 
@@ -1204,7 +1253,7 @@ function AnalyzeTab() {
       {/* Agent results summary */}
       <div style={{ marginBottom: 24 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: C.white, fontFamily: font, marginBottom: 12 }}>
-          Pipeline Results — All 8 Agents
+          Pipeline Results — All 11 Agents
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
           {PIPELINE_STEPS.map((ps, i) => (
@@ -1311,9 +1360,9 @@ export default function App() {
               gap: 12, marginBottom: 40,
             }}>
               {[
-                { label: 'Platform Agents', value: '129', col: C.accent, icon: '⚡' },
-                { label: 'Agent Files', value: '258', col: C.teal, icon: '📁' },
-                { label: 'Longevity Layers', value: '8', col: C.primary, icon: '◈' },
+                { label: 'Platform Agents', value: '132', col: C.accent, icon: '⚡' },
+                { label: 'Agent Files', value: '264', col: C.teal, icon: '📁' },
+                { label: 'Longevity Layers', value: '11', col: C.primary, icon: '◈' },
                 { label: 'Patents Pending', value: '3', col: C.orange, icon: '⚑' },
                 { label: 'DENGE Gate-1 Pass', value: '66.5%', col: C.green, icon: '⬡' },
               ].map(s => (
